@@ -8,6 +8,7 @@ from firebase_admin import _http_client
 from firebase_admin import storage, firestore
 from firebase_admin import db
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessageBox
+import cv2 as cv
 
 
 #***********************************************************************
@@ -44,6 +45,7 @@ def firebase_realtime_callback(event):
     avaliable = json_data['In-stock_avalivle']
     img_name = json_data['img_output']
     show_data(OOS,In_stock,avaliable,img_name)
+    download_image(img_name)
     return
 
 #***********************************************************************
@@ -52,7 +54,7 @@ def firebase_realtime_callback(event):
 def firebase_realtime():
     print("listen from realtime firebase...")
     ref = db.reference('/').listen(firebase_realtime_callback)
-    
+
     return
 
 
