@@ -10,6 +10,15 @@ from firebase_admin import db
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessageBox
 import cv2 as cv
 
+#***********************************************************************
+# define the function to compute MSE between two images
+#***********************************************************************
+def mse(img1, img2):
+   h, w = img1.shape
+   diff = cv.subtract(img1, img2)
+   err = np.sum(diff**2)
+   mse = err/(float(h*w))
+   return mse
 
 #***********************************************************************
 #connect to firebase
@@ -28,6 +37,7 @@ def connect_to_firebase():
 def download_image(img_name):
     bucket = storage.bucket()
     blob = bucket.blob(img_name)
+    time.sleep(2)   #waitting for image update
     blob.download_to_filename(img_name)
     return
 
@@ -46,6 +56,7 @@ def firebase_realtime_callback(event):
     img_name = json_data['img_output']
     show_data(OOS,In_stock,avaliable,img_name)
     download_image(img_name)
+    print("firebase_realtime_callback end !")
     return
 
 #***********************************************************************
