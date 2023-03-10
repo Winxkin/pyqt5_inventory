@@ -157,7 +157,6 @@ def main():
     ui = Ui_MainWindow()
     ui.firebase_realtime()
     ui.setupUi(MainWindow)
-    ui.update_data(1,3,5,'result.jpg')
     MainWindow.show()
     sys.exit(app.exec_())
     return
