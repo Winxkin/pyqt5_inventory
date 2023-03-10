@@ -11,16 +11,6 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessage
 import cv2 as cv
 
 #***********************************************************************
-# define the function to compute MSE between two images
-#***********************************************************************
-def mse(img1, img2):
-   h, w = img1.shape
-   diff = cv.subtract(img1, img2)
-   err = np.sum(diff**2)
-   mse = err/(float(h*w))
-   return mse
-
-#***********************************************************************
 #connect to firebase
 #***********************************************************************
 def connect_to_firebase():
