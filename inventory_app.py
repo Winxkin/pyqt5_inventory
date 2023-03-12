@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
         self.group_img.setFont(font)
         self.group_img.setObjectName("group_img")
         self.result_img = QtWidgets.QLabel(self.group_img)
-        self.result_img.setGeometry(QtCore.QRect(0, 30, 651, 361))
+        self.result_img.setGeometry(QtCore.QRect(0, 30, 651, 391))
         self.result_img.setObjectName("result_img")
         self.group_info = QtWidgets.QGroupBox(self.centralwidget)
         self.group_info.setGeometry(QtCore.QRect(160, 120, 651, 141))
@@ -104,7 +104,10 @@ class Ui_MainWindow(object):
         self.avalible_index.setText(str(avaliable) + "%")
         #set image
         pixmap = QtGui.QPixmap(img_name)
-        self.result_img.setPixmap(pixmap.scaled(615,316,QtCore.Qt.KeepAspectRatio))
+        self.h = self.result_img.width()
+        self.w = self.result_img.height()
+        print('w: ' + str(self.w) +'h:'+ str(self.h))
+        self.result_img.setPixmap(pixmap.scaled(QtCore.QSize(self.w,self.h),QtCore.Qt.KeepAspectRatio,QtCore.Qt.SmoothTransformation))
         return
 
     def download_image(self,img_name):
