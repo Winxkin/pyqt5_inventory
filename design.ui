@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1056</width>
+    <width>1017</width>
     <height>811</height>
    </rect>
   </property>
@@ -184,8 +184,8 @@
     <property name="geometry">
      <rect>
       <x>820</x>
-      <y>140</y>
-      <width>201</width>
+      <y>290</y>
+      <width>151</width>
       <height>121</height>
      </rect>
     </property>
@@ -206,20 +206,65 @@
       <rect>
        <x>10</x>
        <y>40</y>
-       <width>191</width>
+       <width>131</width>
        <height>71</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Sans</family>
-       <pointsize>10</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
+       <family>FreeSans</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
       </font>
      </property>
      <property name="text">
       <string>time</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="Date_box">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>140</y>
+      <width>161</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>URW Bookman</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="title">
+     <string>Date</string>
+    </property>
+    <widget class="QLabel" name="date">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>141</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Serif</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>date</string>
      </property>
     </widget>
    </widget>
@@ -229,7 +274,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1056</width>
+     <width>1017</width>
      <height>22</height>
     </rect>
    </property>
