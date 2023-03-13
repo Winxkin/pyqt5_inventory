@@ -192,7 +192,6 @@ class Ui_MainWindow(QObject):
     def download_image(self):
         self.bucket = storage.bucket()
         self.blob = self.bucket.blob(self.img_name)
-        time.sleep(2)   #waitting for image update
         self.blob.download_to_filename(self.img_name)
         
 
