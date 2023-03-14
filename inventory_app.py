@@ -12,8 +12,23 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QMessage
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import Qt, pyqtSignal ,QObject
-import resource_rc
+import csv
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as Navi
+from matplotlib.figure import Figure
+import seaborn as sns
+import pandas as pd
+import sip
 
+#define value here
+matplotlib.use('Qt5Agg')
+analysis_dir = os.getcwd() + '/analysis/'
+image_dir = os.getcwd() + '/image/'
+
+#*************************
+# connecting to firebase 
+#*************************
 def connect_to_firebase():
     cred = credentials.Certificate("./inventory-firebase.json")
     firebase_admin.initialize_app(cred, {
@@ -46,7 +61,6 @@ class Ui_MainWindow(QObject):
         self.logo_HCMUTE = QtWidgets.QLabel(self.centralwidget)
         self.logo_HCMUTE.setGeometry(QtCore.QRect(250, 10, 451, 111))
         self.logo_HCMUTE.setText("")
-        self.logo_HCMUTE.setPixmap(QtGui.QPixmap("./image/Logo.png"))
         self.logo_HCMUTE.setObjectName("logo_HCMUTE")
         self.group_img = QtWidgets.QGroupBox(self.centralwidget)
         self.group_img.setGeometry(QtCore.QRect(160, 260, 651, 491))
@@ -149,8 +163,6 @@ class Ui_MainWindow(QObject):
         font.setWeight(75)
         self.inventory_btn.setFont(font)
         self.inventory_btn.setText("")
-        self.inventory_btn.setIcon(QtGui.QIcon('./image/analysis_icon'))
-        self.inventory_btn.setIconSize(QtCore.QSize(40,40))
         self.inventory_btn.setObjectName("inventory_btn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -163,6 +175,11 @@ class Ui_MainWindow(QObject):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        #***my code here ***
+        self.logo_HCMUTE.setPixmap(QtGui.QPixmap(image_dir + "Logo.png"))
+        self.inventory_btn.setIcon(QtGui.QIcon('./image/analysis_icon'))
+        self.inventory_btn.setIconSize(QtCore.QSize(40,40))
 
         
     def retranslateUi(self, MainWindow):
@@ -188,11 +205,12 @@ class Ui_MainWindow(QObject):
         self.firebase_sig.connect(self.update_data)
 
     def update_data(self):
+        print("update data on GUI...")
         self.OOS_index.setText(str(self.OOS))
         self.IS_index.setText(str(self.In_stock))
         self.time.setText(str(self._time))
         self.date.setText(str(self._date))
-        self.avalible_index.setProperty("value",float(self.avaliable)*100)
+        self.avalible_index.setProperty("value",self.avaliable)
         #set image
         self.qimg = QtGui.QImage(self.img_name)
         self.pixmap = QtGui.QPixmap().fromImage(self.qimg)
@@ -200,12 +218,46 @@ class Ui_MainWindow(QObject):
         self.w = self.result_img.height() - 10
         self.result_img.setPixmap(self.pixmap.scaled(QtCore.QSize(self.w,self.h),
                                 QtCore.Qt.KeepAspectRatio))
+        self.wirte_csv()
+        # log success
+        print("update data on GUI success")
         
 
+    def wirte_csv(self):
+        print("write data to csv file...")
+        # check csv file is exist
+        file_list = [f for f in os.listdir(analysis_dir) if os.path.isfile(os.path.join(analysis_dir, f))]
+        print("list all of files in analysis directory")
+        print(file_list)
+        if str(self._date + '.csv') in file_list:
+            print('open ' + str(self._date + '.csv') + 'file and append data')
+            with open(analysis_dir + str(self._date) + '.csv', 'a', newline='') as file:
+                write_append = csv.writer(file)
+                write_append.writerow([str(self.OOS), str(self.In_stock), str(self.avaliable), str(self._time)])
+                file.close()
+        else:
+            print('create ' + str(self._date + '.csv') + 'file and write data')
+            # define format data
+            data = [['OOS', 'IS', 'Avalible', 'time'],
+                    [str(self.OOS), str(self.In_stock), str(self.avaliable), str(self._time)]]
+                
+            with open(analysis_dir + str(self._date) + '.csv', 'w', newline='') as file:
+                write = csv.writer(file)
+                write.writerows(data)
+                file.close()
+        # log success        
+        print("write data to csv file success.")
+                
+
+
+
     def download_image(self):
+        print("load image from firebase")
         self.bucket = storage.bucket()
         self.blob = self.bucket.blob(self.img_name)
         self.blob.download_to_filename(self.img_name)
+        # log success
+        print("load image from firebase success")
         
 
     def firebase_realtime_callback(self,event):
@@ -214,7 +266,7 @@ class Ui_MainWindow(QObject):
         print(self.json_data)
         self.OOS = self.json_data['OOS']
         self.In_stock = self.json_data['In-stock']
-        self.avaliable = self.json_data['In-stock_avalivle']
+        self.avaliable = float(self.json_data['In-stock_avalivle'])*100
         self.img_name = self.json_data['img_output']
         self._time = self.json_data['time']
         self._date = self.json_data['date']
@@ -251,3 +303,11 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
+
+#Note: -----------------------------------------------------------------
+#        def setupUi(self, MainWindow):
+#        self.inventory_btn.setIcon(QtGui.QIcon('./image/analysis_icon'))
+#        self.inventory_btn.setIconSize(QtCore.QSize(40,40))
+#        self.inventory_btn.setObjectName("inventory_btn")

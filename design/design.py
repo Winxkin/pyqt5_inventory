@@ -14,13 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1050, 811)
+        MainWindow.resize(1009, 814)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.logo_HCMUTE = QtWidgets.QLabel(self.centralwidget)
         self.logo_HCMUTE.setGeometry(QtCore.QRect(250, 10, 451, 111))
         self.logo_HCMUTE.setText("")
-        self.logo_HCMUTE.setPixmap(QtGui.QPixmap(":/newPrefix/Logo.png"))
         self.logo_HCMUTE.setObjectName("logo_HCMUTE")
         self.group_img = QtWidgets.QGroupBox(self.centralwidget)
         self.group_img.setGeometry(QtCore.QRect(160, 260, 651, 491))
@@ -74,7 +73,7 @@ class Ui_MainWindow(object):
         self.avalible_index.setProperty("value", 24)
         self.avalible_index.setObjectName("avalible_index")
         self.TimeBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.TimeBox.setGeometry(QtCore.QRect(820, 290, 151, 121))
+        self.TimeBox.setGeometry(QtCore.QRect(820, 280, 139, 131))
         font = QtGui.QFont()
         font.setFamily("URW Bookman")
         font.setPointSize(14)
@@ -84,7 +83,7 @@ class Ui_MainWindow(object):
         self.TimeBox.setFont(font)
         self.TimeBox.setObjectName("TimeBox")
         self.time = QtWidgets.QLabel(self.TimeBox)
-        self.time.setGeometry(QtCore.QRect(10, 40, 131, 71))
+        self.time.setGeometry(QtCore.QRect(20, 50, 101, 71))
         font = QtGui.QFont()
         font.setFamily("FreeSans")
         font.setPointSize(12)
@@ -94,7 +93,7 @@ class Ui_MainWindow(object):
         self.time.setFont(font)
         self.time.setObjectName("time")
         self.Date_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.Date_box.setGeometry(QtCore.QRect(820, 140, 161, 121))
+        self.Date_box.setGeometry(QtCore.QRect(820, 150, 139, 122))
         font = QtGui.QFont()
         font.setFamily("URW Bookman")
         font.setPointSize(14)
@@ -104,7 +103,7 @@ class Ui_MainWindow(object):
         self.Date_box.setFont(font)
         self.Date_box.setObjectName("Date_box")
         self.date = QtWidgets.QLabel(self.Date_box)
-        self.date.setGeometry(QtCore.QRect(10, 40, 141, 71))
+        self.date.setGeometry(QtCore.QRect(10, 40, 121, 71))
         font = QtGui.QFont()
         font.setFamily("DejaVu Serif")
         font.setPointSize(12)
@@ -126,7 +125,7 @@ class Ui_MainWindow(object):
         self.inventory_btn.setObjectName("inventory_btn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1050, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1009, 20))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -151,7 +150,6 @@ class Ui_MainWindow(object):
         self.time.setText(_translate("MainWindow", "time"))
         self.Date_box.setTitle(_translate("MainWindow", "Date"))
         self.date.setText(_translate("MainWindow", "date"))
-import resource_rc
 
 
 if __name__ == "__main__":
