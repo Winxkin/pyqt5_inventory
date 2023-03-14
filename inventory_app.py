@@ -266,7 +266,7 @@ class Ui_MainWindow(QObject):
         print(self.json_data)
         self.OOS = self.json_data['OOS']
         self.In_stock = self.json_data['In-stock']
-        self.avaliable = float(self.json_data['In-stock_avalivle'])*100
+        self.avaliable = int(float(self.json_data['In-stock_avalivle'])*100)
         self.img_name = self.json_data['img_output']
         self._time = self.json_data['time']
         self._date = self.json_data['date']
