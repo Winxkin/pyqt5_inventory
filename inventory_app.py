@@ -40,13 +40,13 @@ class Ui_MainWindow(QObject):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1017, 811)
+        MainWindow.resize(1050, 811)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.logo_HCMUTE = QtWidgets.QLabel(self.centralwidget)
         self.logo_HCMUTE.setGeometry(QtCore.QRect(250, 10, 451, 111))
         self.logo_HCMUTE.setText("")
-        self.logo_HCMUTE.setPixmap(QtGui.QPixmap(":/newPrefix/Logo.png"))
+        self.logo_HCMUTE.setPixmap(QtGui.QPixmap("./image/Logo.png"))
         self.logo_HCMUTE.setObjectName("logo_HCMUTE")
         self.group_img = QtWidgets.QGroupBox(self.centralwidget)
         self.group_img.setGeometry(QtCore.QRect(160, 260, 651, 491))
@@ -139,9 +139,22 @@ class Ui_MainWindow(QObject):
         font.setWeight(75)
         self.date.setFont(font)
         self.date.setObjectName("date")
+        self.inventory_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.inventory_btn.setGeometry(QtCore.QRect(820, 680, 171, 71))
+        font = QtGui.QFont()
+        font.setFamily("URW Bookman [UKWN]")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.inventory_btn.setFont(font)
+        self.inventory_btn.setText("")
+        self.inventory_btn.setIcon(QtGui.QIcon('./image/analysis_icon'))
+        self.inventory_btn.setIconSize(QtCore.QSize(40,40))
+        self.inventory_btn.setObjectName("inventory_btn")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1017, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1050, 20))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -154,20 +167,20 @@ class Ui_MainWindow(QObject):
         
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Inventory App"))
         self.group_img.setTitle(_translate("MainWindow", "shelf"))
         self.result_img.setText(_translate("MainWindow", "Image"))
         self.group_info.setTitle(_translate("MainWindow", "Index"))
         self.OOS_lable.setText(_translate("MainWindow", "Out of stock"))
         self.IS_lable.setText(_translate("MainWindow", "In stock"))
-        self.avalible_lable.setText(_translate("MainWindow", "Available in shelf"))
+        self.avalible_lable.setText(_translate("MainWindow", "Available on shelf"))
         self.OOS_index.setText(_translate("MainWindow", "0"))
         self.IS_index.setText(_translate("MainWindow", "0"))
         self.TimeBox.setTitle(_translate("MainWindow", "Time"))
         self.time.setText(_translate("MainWindow", "time"))
         self.Date_box.setTitle(_translate("MainWindow", "Date"))
         self.date.setText(_translate("MainWindow", "date"))
-
+    
     #******************************************************
     #my code here
     #******************************************************

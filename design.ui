@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1017</width>
+    <width>1050</width>
     <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Inventory App</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="logo_HCMUTE">
@@ -137,7 +137,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Available in shelf</string>
+      <string>Available on shelf</string>
      </property>
     </widget>
     <widget class="QLabel" name="OOS_index">
@@ -268,14 +268,36 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="inventory_btn">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>680</y>
+      <width>171</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>URW Bookman [UKWN]</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1017</width>
-     <height>22</height>
+     <width>1050</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
