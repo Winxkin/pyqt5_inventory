@@ -22,7 +22,7 @@ import pandas as pd
 import sip
 
 #define value here
-matplotlib.use('Qt5Agg')
+#matplotlib.use('Qt5Agg')
 analysis_dir = './analysis/'
 image_dir = './image/'
 
@@ -260,7 +260,7 @@ class Ui_MainWindow(QObject):
         #***my code here ***
         self.logo_HCMUTE.setPixmap(QtGui.QPixmap(image_dir + "Logo.png").scaled(QtCore.QSize(self.logo_HCMUTE.width(),self.logo_HCMUTE.height()),
                                 QtCore.Qt.KeepAspectRatio))
-        self.inventory_btn.setIcon(QtGui.QIcon(image_dir + 'analysis_icon'))
+        self.inventory_btn.setIcon(QtGui.QIcon(image_dir + "analysis_icon"))
         self.inventory_btn.setIconSize(QtCore.QSize(40,40))
 
         
