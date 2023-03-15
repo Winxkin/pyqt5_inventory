@@ -50,6 +50,55 @@ class Signaller(object):
 #***********************************************************************
 #class gui design for application
 #***********************************************************************
+
+#*****analysis window********
+class Ui_inventory_wd(QObject):
+    def setupUi(self, inventory_wd):
+        inventory_wd.setObjectName("inventory_wd")
+        inventory_wd.resize(886, 533)
+        self.centralwidget = QtWidgets.QWidget(inventory_wd)
+        self.centralwidget.setObjectName("centralwidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName("gridLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.date_inventory_cb = QtWidgets.QComboBox(self.centralwidget)
+        self.date_inventory_cb.setObjectName("date_inventory_cb")
+        self.horizontalLayout.addWidget(self.date_inventory_cb)
+        self.search_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.search_btn.setText("")
+        self.search_btn.setObjectName("search_btn")
+        self.horizontalLayout.addWidget(self.search_btn)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem1)
+        self.gridLayout.addLayout(self.verticalLayout_2, 1, 0, 1, 1)
+        inventory_wd.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(inventory_wd)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 886, 20))
+        self.menubar.setObjectName("menubar")
+        inventory_wd.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(inventory_wd)
+        self.statusbar.setObjectName("statusbar")
+        inventory_wd.setStatusBar(self.statusbar)
+
+        self.retranslateUi(inventory_wd)
+        QtCore.QMetaObject.connectSlotsByName(inventory_wd)
+
+    def retranslateUi(self, inventory_wd):
+        _translate = QtCore.QCoreApplication.translate
+        inventory_wd.setWindowTitle(_translate("inventory_wd", "Inventory Analysis"))
+
+    #*************************
+    # My code here
+    #*************************
+
+
+#*****main_window*****
 class Ui_MainWindow(QObject):
     firebase_sig = QtCore.pyqtSignal()
 
@@ -201,8 +250,16 @@ class Ui_MainWindow(QObject):
     #******************************************************
     #my code here
     #******************************************************
+    def show_analysis_screen(self):
+        print("show analysis screen")
+        self.analysisWindow = QtWidgets.QMainWindow()
+        self.analysis_screen = Ui_inventory_wd()
+        self.analysis_screen.setupUi(self.analysisWindow)
+        self.analysisWindow.show()
+
     def connect_signal(self):
         self.firebase_sig.connect(self.update_data)
+        self.inventory_btn.clicked.connect(self.show_analysis_screen)
 
     def update_data(self):
         print("update data on GUI...")
