@@ -23,8 +23,8 @@ import sip
 
 #define value here
 matplotlib.use('Qt5Agg')
-analysis_dir = os.getcwd() + '/analysis/'
-image_dir = os.getcwd() + '/image/'
+analysis_dir = './analysis/'
+image_dir = './image/'
 
 #*************************
 # connecting to firebase 
@@ -38,13 +38,6 @@ def connect_to_firebase():
     print("connecting to firebase server...")
     return
 
-# replace `object` with `QObject` to fix
-class Signaller(object):
-    signal = pyqtSignal(str)
-
-    def trigger(self, msg):
-        print("emitting: {}".format(msg))
-        self.signal.emit(msg)
 
 
 #***********************************************************************
@@ -55,31 +48,23 @@ class Signaller(object):
 class Ui_inventory_wd(QObject):
     def setupUi(self, inventory_wd):
         inventory_wd.setObjectName("inventory_wd")
-        inventory_wd.resize(886, 533)
+        inventory_wd.resize(576, 423)
         self.centralwidget = QtWidgets.QWidget(inventory_wd)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout.setObjectName("gridLayout")
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
         self.date_inventory_cb = QtWidgets.QComboBox(self.centralwidget)
+        self.date_inventory_cb.setGeometry(QtCore.QRect(140, 340, 211, 31))
         self.date_inventory_cb.setObjectName("date_inventory_cb")
-        self.horizontalLayout.addWidget(self.date_inventory_cb)
         self.search_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.search_btn.setGeometry(QtCore.QRect(360, 310, 71, 61))
         self.search_btn.setText("")
         self.search_btn.setObjectName("search_btn")
-        self.horizontalLayout.addWidget(self.search_btn)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
-        self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem1)
-        self.gridLayout.addLayout(self.verticalLayout_2, 1, 0, 1, 1)
+        self.Analysis_logo = QtWidgets.QLabel(self.centralwidget)
+        self.Analysis_logo.setGeometry(QtCore.QRect(30, 10, 521, 281))
+        self.Analysis_logo.setText("")
+        self.Analysis_logo.setObjectName("Analysis_logo")
         inventory_wd.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(inventory_wd)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 886, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 576, 20))
         self.menubar.setObjectName("menubar")
         inventory_wd.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(inventory_wd)
@@ -89,6 +74,19 @@ class Ui_inventory_wd(QObject):
         self.retranslateUi(inventory_wd)
         QtCore.QMetaObject.connectSlotsByName(inventory_wd)
 
+        #***my code here****
+        self.search_btn.setIcon(QtGui.QIcon(image_dir + 'search_icon'))
+        self.search_btn.setIconSize(QtCore.QSize(40,40))
+        self.Analysis_logo.setPixmap(QtGui.QPixmap(image_dir + "analysis_logo.png").scaled(QtCore.QSize(self.Analysis_logo.width(),self.Analysis_logo.height()),
+                                QtCore.Qt.KeepAspectRatio))
+        #get list file in folder analysis and show in combobox
+        self.filecsv_list = [f for f in os.listdir(analysis_dir) if os.path.isfile(os.path.join(analysis_dir, f))]
+        self.file_list = [s.replace(".csv", "") for s in self.filecsv_list]
+        self.date_inventory_cb.addItems(self.file_list)
+        self.search_btn.clicked.connect(self.Plot_chart)
+
+
+
     def retranslateUi(self, inventory_wd):
         _translate = QtCore.QCoreApplication.translate
         inventory_wd.setWindowTitle(_translate("inventory_wd", "Inventory Analysis"))
@@ -96,6 +94,40 @@ class Ui_inventory_wd(QObject):
     #*************************
     # My code here
     #*************************
+    def Plot_chart(self):
+        self.csv_file = self.date_inventory_cb.currentText() + '.csv'
+        self.df = pd.read_csv(analysis_dir + self.csv_file)
+        self.x_time = self.df['time']
+        self.y_OOS = self.df['OOS']
+        self.y_IS = self.df['IS']
+        self.y_avalible = self.df['Avalible']
+        #plot the charts
+        self.fig, (self.ax1, self.ax2, self.ax3)  = plt.subplots(1, 3)
+        #OOS
+        self.ax1.plot(self.x_time,self.y_OOS)
+        self.ax1.set_title('Out of stock')
+        self.ax1.set_xlabel('Time')
+        self.ax1.tick_params(axis='x', rotation=90, labelsize=8)
+        #IS
+        self.ax2.plot(self.x_time,self.y_IS)
+        self.ax2.set_title('In stock')
+        self.ax2.set_xlabel('Time')
+        self.ax2.tick_params(axis='x', rotation=90, labelsize=8)
+        #Avaliable
+        self.ax3.plot(self.x_time,self.y_avalible)
+        self.ax3.set_title('Avaliable on shelf (%)')
+        self.ax3.set_xlabel('Time')
+        self.ax3.tick_params(axis='x', rotation=90, labelsize=8)
+        #set figure title
+        self.fig.suptitle('Inventory ' + self.date_inventory_cb.currentText() , fontsize=14)
+        #show
+        plt.show()
+
+        
+
+
+
+
 
 
 #*****main_window*****
@@ -226,8 +258,9 @@ class Ui_MainWindow(QObject):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         #***my code here ***
-        self.logo_HCMUTE.setPixmap(QtGui.QPixmap(image_dir + "Logo.png"))
-        self.inventory_btn.setIcon(QtGui.QIcon('./image/analysis_icon'))
+        self.logo_HCMUTE.setPixmap(QtGui.QPixmap(image_dir + "Logo.png").scaled(QtCore.QSize(self.logo_HCMUTE.width(),self.logo_HCMUTE.height()),
+                                QtCore.Qt.KeepAspectRatio))
+        self.inventory_btn.setIcon(QtGui.QIcon(image_dir + 'analysis_icon'))
         self.inventory_btn.setIconSize(QtCore.QSize(40,40))
 
         
@@ -285,7 +318,7 @@ class Ui_MainWindow(QObject):
         # check csv file is exist
         file_list = [f for f in os.listdir(analysis_dir) if os.path.isfile(os.path.join(analysis_dir, f))]
         print("list all of files in analysis directory")
-        print(file_list)
+        #print(file_list)
         if str(self._date + '.csv') in file_list:
             print('open ' + str(self._date + '.csv') + 'file and append data')
             with open(analysis_dir + str(self._date) + '.csv', 'a', newline='') as file:

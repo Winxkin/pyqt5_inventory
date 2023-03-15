@@ -9,37 +9,28 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal ,QObject
 
 
-class Ui_inventory_wd(QObject):
+class Ui_inventory_wd(object):
     def setupUi(self, inventory_wd):
         inventory_wd.setObjectName("inventory_wd")
-        inventory_wd.resize(886, 533)
+        inventory_wd.resize(576, 423)
         self.centralwidget = QtWidgets.QWidget(inventory_wd)
         self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout.setObjectName("gridLayout")
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
         self.date_inventory_cb = QtWidgets.QComboBox(self.centralwidget)
+        self.date_inventory_cb.setGeometry(QtCore.QRect(140, 340, 211, 31))
         self.date_inventory_cb.setObjectName("date_inventory_cb")
-        self.horizontalLayout.addWidget(self.date_inventory_cb)
         self.search_btn = QtWidgets.QPushButton(self.centralwidget)
+        self.search_btn.setGeometry(QtCore.QRect(360, 310, 71, 61))
         self.search_btn.setText("")
         self.search_btn.setObjectName("search_btn")
-        self.horizontalLayout.addWidget(self.search_btn)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
-        self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem1)
-        self.gridLayout.addLayout(self.verticalLayout_2, 1, 0, 1, 1)
+        self.Analysis_logo = QtWidgets.QLabel(self.centralwidget)
+        self.Analysis_logo.setGeometry(QtCore.QRect(30, 10, 521, 281))
+        self.Analysis_logo.setText("")
+        self.Analysis_logo.setObjectName("Analysis_logo")
         inventory_wd.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(inventory_wd)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 886, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 576, 20))
         self.menubar.setObjectName("menubar")
         inventory_wd.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(inventory_wd)

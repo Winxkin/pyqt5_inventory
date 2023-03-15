@@ -12,15 +12,31 @@ print(df)
 x = df['time']
 y = df['OOS']
 z = df['IS']
+e = df['Avalible']
 
 # Create a line chart
-plt.plot(x, y,z)
-plt.gcf().autofmt_xdate()
+fig, (ax1, ax2, ax3)  = plt.subplots(3, 1)
+ax1.plot(x,y)
+ax3.plot(x, z)
+ax2.plot(x, e)
+
+
 
 # Add title and labels
-plt.title('Example Chart')
-plt.xlabel('X-axis label')
-plt.ylabel('Y-axis label')
-plt.xticks(rotation='vertical', fontsize = 8)
+ax1.set_title('Example Chart')
+ax1.set_xlabel('X-axis label')
+ax1.set_ylabel('Y-axis label')
+ax1.tick_params(axis='x', rotation=90, labelsize=8)
+
+ax2.set_title('Example Chart')
+ax2.set_xlabel('X-axis label')
+ax2.set_ylabel('Y-axis label')
+ax2.tick_params(axis='x', rotation=90, labelsize=8)
+
+ax3.set_title('Example Chart')
+ax3.set_xlabel('X-axis label')
+ax3.set_ylabel('Y-axis label')
+ax3.tick_params(axis='x', rotation=90, labelsize=8)
+
 # Display the chart
 plt.show()
