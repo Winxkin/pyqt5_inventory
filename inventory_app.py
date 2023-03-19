@@ -104,24 +104,26 @@ class Ui_inventory_wd(QObject):
         #plot the charts
         self.fig, (self.ax1, self.ax2, self.ax3)  = plt.subplots(1, 3)
         #OOS
-        self.ax1.bar(self.x_time,self.y_OOS,'r.-',label='OOS')
+        self.ax1.plot(self.x_time,self.y_OOS,'r.-',label='OOS')
         self.ax1.set_title('Out of stock')
         self.ax1.set_xlabel('Time')
+        self.ax1.set_ylabel('OOS')
         self.ax1.tick_params(axis='x', rotation=90, labelsize=8)
         #IS
         self.ax2.plot(self.x_time,self.y_IS,'b.-')
         self.ax2.set_title('In stock')
         self.ax2.set_xlabel('Time')
+        self.ax2.set_ylabel('IS')
         self.ax2.tick_params(axis='x', rotation=90, labelsize=8)
         #Avaliable
         self.ax3.plot(self.x_time,self.y_avalible,'g.-')
-        self.ax3.set_title('Avaliable on shelf (%)')
+        self.ax3.set_title('Avaliable on shelf')
         self.ax3.set_xlabel('Time')
+        self.ax3.set_ylabel('Avaliable on shelf %')
         self.ax3.tick_params(axis='x', rotation=90, labelsize=8)
         #set figure title
         self.fig.suptitle('Inventory ' + self.date_inventory_cb.currentText() , fontsize=14)
         #show
-        plt.legend()
         plt.show()
 
         
