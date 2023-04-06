@@ -117,9 +117,9 @@ class Ui_inventory_wd(QObject):
         self.ax2.tick_params(axis='x', rotation=90, labelsize=8)
         #Avaliable
         self.ax3.plot(self.x_time,self.y_avalible,'g.-')
-        self.ax3.set_title('Avaliable on shelf')
+        self.ax3.set_title('Available on shelf')
         self.ax3.set_xlabel('Time')
-        self.ax3.set_ylabel('Avaliable on shelf %')
+        self.ax3.set_ylabel('Available on shelf %')
         self.ax3.tick_params(axis='x', rotation=90, labelsize=8)
         #set figure title
         self.fig.suptitle('Inventory ' + self.date_inventory_cb.currentText() , fontsize=14)
